@@ -5,7 +5,9 @@ angular.module('issueTrackingSystem', [
   'issueTrackingSystem.view1',
   'issueTrackingSystem.accounts.users',
   'issueTrackingSystem.accounts.authentication',
-  'issueTrackingSystem.home'
+  'issueTrackingSystem.accounts.identity',
+  'issueTrackingSystem.home',
+  'issueTrackingSystem.common.mainController'
 
 
   ])

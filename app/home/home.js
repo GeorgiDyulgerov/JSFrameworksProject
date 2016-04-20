@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('issueTrackingSystem.home',[
     'issueTrackingSystem.accounts.authentication'
 ])
@@ -13,17 +15,17 @@ angular.module('issueTrackingSystem.home',[
     '$location',
     'authentication',
     function($scope,$location,authentication){
-
         $scope.login = function(account){
-           account.grant_type="password";
-            console.log(account);
             authentication.loginAccount(account)
-
                 .then(function(loggedInUser){
-                    console.log(loggedInUser);
-                    $location.path('/users');
+                    $location.path('/');
                 })
-
-        }
+        };
+        $scope.register= function(account){
+            authentication.registerAccount(account)
+                .then(function(registeredUser){
+                    $location.path('/');
+                })
+        };
     }
-])
+]);

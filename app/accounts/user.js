@@ -9,11 +9,10 @@ angular.module('issueTrackingSystem.accounts.users',['ngRoute'])
             })
         }
     ])
-    .controller('userCtrl',['$scope',function($scope){
-        var user = {
-            name:'Pesho',
-            age:21
-        }
+    .controller('userCtrl',['$scope','identity',function($scope,identity){
+        var user =identity.getCurrentUser();
+        console.log(user);
+        console.log(user.Username);
         $scope.user=user;
     }])
 
