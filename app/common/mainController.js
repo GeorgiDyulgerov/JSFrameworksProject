@@ -12,12 +12,12 @@ angular.module('issueTrackingSystem.common.mainController',[])
         $scope.logout = function(){
             authentication.logout()
                 .then(function(response){
-                    $location.path('#/')
+
                 });
         };
 
         $scope.isAuthenticated =function(){
-            return identity.isAuthenticated();
+            return authentication.isAuthenticated();
         };
 
     }]);

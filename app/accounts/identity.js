@@ -8,37 +8,31 @@ angular.module('issueTrackingSystem.accounts.identity',[])
 
             var currentUser=undefined;
 
-            function getCurrentUser(){
-                $http.get(BASE_URL + 'Users/me')
-                    .then(function (response) {
-                        currentUser = response.data;
-                        if(currentUser){
-                            return $q.when(currentUser);
-                        }
-
-                        deferred.resolve(response);
-                    },function(err){
-                        currentUser = undefined;
-                        console.log(err);
-                    });
-                return currentUser;
-            }
-
-
             return{
-                getCurrentUser : getCurrentUser,
-                isAuthenticated : function(){
-                    if (currentUser!=undefined){
-                        return true;
+                getCurrentUser: function () {
+                    if (currentUser) {
+                        return $q.when(currentUser);
                     }
-                    return false;
+                    else {
+                        return deferred.promise;
+                    }
+                },
+                requestUser: function() {
+                    var userDeferred = $q.defer();
+
+                    $http.get(BASE_URL + 'users/me')
+                        .then(function(response) {
+                            currentUser = response.data;
+                            deferred.resolve(currentUser);
+                            userDeferred.resolve();
+                        });
+
+                    return userDeferred.promise;
+                },
+                removeUser: function(){
+                    currentUser = undefined;
                 }
-            }
-
-
+            };
         }
 
-    ]
-
-
-)
+    ]);

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="app/app.css">
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   </head>
-  <body ng-controller="MainCtrl">
+  <body ng-controller="MainCtrl" ng-style="{'background-image':'url(' + 'app/img/code-wallpaper-2.jpg' + ')'}">
 
   <header ng-include src="'app/partials/header.html'" ng-if="isAuthenticated()"></header>
 
@@ -25,6 +25,7 @@
     <script src="app/bower_components/angular/angular.js"></script>
     <script src="app/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="app/bower_components/angular-route/angular-route.js"></script>
+    <script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/common/mainController.js"></script>

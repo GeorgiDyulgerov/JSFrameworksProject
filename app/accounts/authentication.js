@@ -2,11 +2,13 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
     .factory('authentication',[
         '$http',
         '$q',
+        '$cookies',
+        '$location',
         'BASE_URL',
         'identity',
-    function($http,$q,BASE_URL,identity){
+    function($http,$q,$cookies,$location,BASE_URL,identity){
 
-        var currentUser = undefined;
+        var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key__!';
 
         function registerAccount(account){
             var deferred = $q.defer();
@@ -29,10 +31,11 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
                     "&grant_type=password")
                 .then(function(response){
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.access_token;
-                    identity.getCurrentUser();
-                    deferred.resolve(response);
-                },function(err){
-                    deferred.reject(err);
+                    $cookies.put(AUTHENTICATION_COOKIE_KEY,response.data.access_token);
+                    identity.requestUser()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        });
                 });
 
             return deferred.promise;
@@ -44,9 +47,10 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
 
             $http.post(BASE_URL + 'api/Account/Logout')
                 .then(function(response){
-                    console.log(response);
-                    $http.defaults.headers.common.Authorization = '';
-                    identity.getCurrentUser();
+                    delete $http.defaults.headers.common.Authorization;
+                    $cookies.remove(AUTHENTICATION_COOKIE_KEY);
+                    $location.path('/');
+                    identity.removeUser();
                     deferred.resolve(response);
                 },function(err){
                     deferred.reject(err);
@@ -55,10 +59,22 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
             return deferred.promise;
         }
 
+        function isAuthenticated(){
+            return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
+        }
+
+        function refreshCookie(){
+            if(isAuthenticated()){
+                $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get(AUTHENTICATION_COOKIE_KEY);
+            }
+        }
+
 
         return {
             registerAccount: registerAccount,
             loginAccount: loginAccount,
             logout: logout,
+            isAuthenticated: isAuthenticated,
+            refreshCookie: refreshCookie
         }
     }]);

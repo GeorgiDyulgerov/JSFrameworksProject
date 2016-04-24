@@ -2,6 +2,7 @@
 
 angular.module('issueTrackingSystem', [
   'ngRoute',
+  'ngCookies',
   'issueTrackingSystem.view1',
   'issueTrackingSystem.accounts.users',
   'issueTrackingSystem.accounts.authentication',
@@ -14,4 +15,7 @@ angular.module('issueTrackingSystem', [
     .config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
   }])
+    .run(['authentication',function(authentication){
+      authentication.refreshCookie();
+    }])
     .constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/');

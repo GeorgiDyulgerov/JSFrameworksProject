@@ -10,7 +10,7 @@ angular.module('issueTrackingSystem.accounts.users',['ngRoute'])
         }
     ])
     .controller('userCtrl',['$scope','identity',function($scope,identity){
-        var user =identity.getCurrentUser();
+        var user =identity.requestUser();
         console.log(user);
         console.log(user.Username);
         $scope.user=user;
