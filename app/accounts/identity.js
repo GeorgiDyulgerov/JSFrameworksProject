@@ -24,7 +24,7 @@ angular.module('issueTrackingSystem.accounts.identity',[])
                         .then(function(response) {
                             currentUser = response.data;
                             deferred.resolve(currentUser);
-                            userDeferred.resolve();
+                            userDeferred.resolve(currentUser);
                         });
 
                     return userDeferred.promise;

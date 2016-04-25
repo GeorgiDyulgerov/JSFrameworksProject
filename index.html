@@ -14,7 +14,7 @@
   </head>
   <body ng-controller="MainCtrl" ng-style="{'background-image':'url(' + 'app/img/code-wallpaper-2.jpg' + ')'}">
 
-  <header ng-include src="'app/partials/header.html'" ng-if="isAuthenticated()"></header>
+  <header ng-include src="'app/partials/header.html'"></header>
 
   <div class="container">
     <div ng-view></div>
@@ -24,6 +24,8 @@
     <script src="app/bower_components/jquery/dist/jquery.js"></script>
     <script src="app/bower_components/angular/angular.js"></script>
     <script src="app/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="app/bower_components/angular-route/angular-route.js"></script>
     <script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
 
@@ -33,7 +35,11 @@
     <script src="app/accounts/user.js"></script>
     <script src="app/accounts/authentication.js"></script>
     <script src="app/accounts/identity.js"></script>
+    <script src="app/issues/issueService.js"></script>
     <script src="app/home/home.js"></script>
+    <script src="app/home/dashboardController.js"></script>
+    <script src="app/pagination/paginationController.js"></script>
+    <script src="app/accounts/changePasswordController.js"></script>
 
   </body>
 </html>

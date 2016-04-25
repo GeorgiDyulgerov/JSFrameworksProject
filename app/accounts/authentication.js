@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('issueTrackingSystem.accounts.authentication',[])
     .factory('authentication',[
         '$http',
@@ -42,7 +44,6 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
         }
 
         function logout(){
-            //TODO fix
             var deferred = $q.defer();
 
             $http.post(BASE_URL + 'api/Account/Logout')
@@ -57,6 +58,17 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
                 });
 
             return deferred.promise;
+        }
+
+        function changePassword(passwords){
+            var deferred = $q.defer();
+
+            $http.post(BASE_URL + "api/Account/ChangePassword",passwords)
+                .then(function(response){
+                    deferred.resolve(response);
+                });
+
+            return deferred.promise
         }
 
         function isAuthenticated(){
@@ -74,6 +86,7 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
             registerAccount: registerAccount,
             loginAccount: loginAccount,
             logout: logout,
+            changePassword: changePassword,
             isAuthenticated: isAuthenticated,
             refreshCookie: refreshCookie
         }

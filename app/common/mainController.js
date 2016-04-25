@@ -16,6 +16,11 @@ angular.module('issueTrackingSystem.common.mainController',[])
                 });
         };
 
+        identity.getCurrentUser()
+            .then(function(user) {
+                $scope.currentUser = user;
+            });
+
         $scope.isAuthenticated =function(){
             return authentication.isAuthenticated();
         };
