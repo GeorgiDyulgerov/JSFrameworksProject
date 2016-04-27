@@ -13,7 +13,8 @@ angular.module('issueTrackingSystem', [
   'issueTrackingSystem.issues.issueService',
   'issueTrackingSystem.home.dashboardController',
   'issueTrackingSystem.pagination.paginationController',
-  'issueTrackerSystem.accounts.changePasswordController'
+  'issueTrackerSystem.accounts.changePasswordController',
+  'issueTrackingSystem.issues.issuePageController',
 
 
   ])

@@ -21,12 +21,26 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                         deferred.resolve(response.data);
                     });
 
-
                 return deferred.promise;
+            }
+
+            function getIssueById(id){
+                var defered = $q.defer();
+
+                $http.get(BASE_URL + 'Issues/' + id)
+                    .then(function(response){
+                        console.log(response.data);
+                        defered.resolve(response.data);
+                    });
+
+                return defered.promise;
+
             }
 
             return{
                 getMyIssues: getMyIssues,
+                getIssueById: getIssueById,
+
             }
         }
     ])

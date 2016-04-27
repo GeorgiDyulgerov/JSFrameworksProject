@@ -72,7 +72,7 @@
            <tbody>
                <div ng-if="issues.length!==0">
                    <tr ng-repeat="issue in issues">
-                       <td ><a href="#/issue/{{issue.Id}}">{{issue.Title}}</a></td>
+                       <td ><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
                        <td>{{issue.Description}}</td>
                        <td><a href="#/project/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
                        <td>{{issue.DueDate}}</td>
