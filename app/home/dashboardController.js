@@ -18,7 +18,6 @@ angular.module('issueTrackingSystem.home.dashboardController',[])
                 .then(function(response){
                     issues = response.Issues;
                     settings.TotalPages = response.TotalPages;
-                    console.log(issues);
                     $scope.issues = issues;
             })
                 //TODO:fix shity code
@@ -34,7 +33,6 @@ angular.module('issueTrackingSystem.home.dashboardController',[])
                         issueService.getMyIssues(settings)
                             .then(function(response){
                                 issues = response.Issues;
-                                console.log(issues);
                                 settings.TotalPages = response.TotalPages;
                                 $scope.issues = issues;
                             })

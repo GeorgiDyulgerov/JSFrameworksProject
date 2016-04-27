@@ -21,7 +21,7 @@ angular.module('issueTrackingSystem.accounts.users',['ngRoute'])
         }
     ])
     .controller('userCtrl',['$scope','identity',function($scope,identity){
-        var user = identity.requestUser();
+        var user = identity.getCurrentUser();
         $scope.user=user;
     }]);
 

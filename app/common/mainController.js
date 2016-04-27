@@ -15,11 +15,15 @@ angular.module('issueTrackingSystem.common.mainController',[])
 
                 });
         };
+        $scope.$on('$viewContentLoaded',function(){
+            identity.requestUser().
+                then(identity.getCurrentUser()
+                .then(function(user) {
+                    $scope.currentUser = user;
+                }))
+        }
+        );
 
-        identity.getCurrentUser()
-            .then(function(user) {
-                $scope.currentUser = user;
-            });
 
         $scope.isAuthenticated =function(){
             return authentication.isAuthenticated();

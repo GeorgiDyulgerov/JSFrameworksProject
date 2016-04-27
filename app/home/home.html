@@ -72,9 +72,9 @@
            <tbody>
                <div ng-if="issues.length!==0">
                    <tr ng-repeat="issue in issues">
-                       <td>{{issue.Title}}</td>
+                       <td ><a href="#/issue/{{issue.Id}}">{{issue.Title}}</a></td>
                        <td>{{issue.Description}}</td>
-                       <td>{{issue.Project.Name}}</td>
+                       <td><a href="#/project/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
                        <td>{{issue.DueDate}}</td>
                    </tr>
                </div>
@@ -83,7 +83,4 @@
     <h3 align="center" ng-if="issues.length===0" style="height: 2em">___No assigned Issues___ </h3>
 
     <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
-
-
 </div>
-
