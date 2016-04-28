@@ -1,41 +1,38 @@
- <div class="jumbotron">
+<div class="jumbotron">
     <form class="form-horizontal">
         <fieldset>
-            <legend>Issue Page</legend>
+            <legend>Edit Issue Page Not Complete</legend>
             <div class="form-group">
                 <label class="col-lg-2 control-label"><h2>{{issue.IssueKey}}</h2></label>
-                <div class="col-lg-10">
-                    <a href="#/issues/{{issue.Id}}/edit"><button class="btn-primary btn-lg " ng-if="issue.Author.Id === currentUser.Id">Edit</button></a>
-                </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Title: </label>
                 <div class="col-lg-10">
-                    <p>{{issue.Title}}</p>
+                        <input class="form-control" required="required" ng-model="editIssue.Title" type="text">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Description: </label>
                 <div class="col-lg-10">
-                    <p>{{issue.Description}}</p>
+                    <input class="form-control" type="text" required="required" ng-model="editIssue.Description" >
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">AssigneeId: </label>
                 <div class="col-lg-10">
-                    <p>(<span ng-if="issue.Assignee.Id === currentUser.Id">current id:</span> {{issue.Assignee.Id}}) <span class="text-muted">{{issue.Assignee.Username}}</span></p>
+                    <input class="form-control" type="text" required="required" ng-model="editIssue.Username">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">PriorityId: </label>
                 <div class="col-lg-10">
-                    <p>(current id:{{issue.Priority.Id}}) <span class="text-muted">{{issue.Priority.Name}}</span></p>
+                    <input class="form-control" type="text" ng-model="editIssue.PriorityId" required="required">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">DueDate: </label>
                 <div class="col-lg-10">
-                    <p class="text-muted">{{issue.DueDate}}</p>
+                    <input class="form-control" type="text" required="required" ng-model="editIssue.DueDate" value="{{issue.DueDate}}">
                 </div>
             </div>
             <div class="form-group">
@@ -47,7 +44,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Project: </label>
                 <div class="col-lg-10">
-                    <p>{{issue.Project.Name}}</p>
+                    <p ng-model="editIssue.ProjectId">{{issue.Project.Name}}</p>
                 </div>
             </div>
             <div class="form-group">
@@ -66,15 +63,21 @@
             <div class="form-group" ng-if="issue.Assignee.Id === currentUser.Id">
                 <label for="select" class="col-lg-2 control-label">Available Statuses:</label>
                 <div class="col-lg-4">
-                    <select class="form-control" id="select" ng-model="statusId">
-                        <option ng-repeat="status in issue.AvailableStatuses" value="{{status.Id}}">-----{{status.Name}}</option>
+                    <select class="form-control" id="select">
+                        <option ng-repeat="status in issue.AvailableStatuses">-----{{status.Name}}</option>
                     </select>
-                    <button type="submit" class="btn btn-warning" ng-click="changeStatus(statusId)">Change</button>
                     <br>
                 </div>
+                <button type="submit" class="btn btn-warning">Change</button>
+            </div>
 
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
             </div>
 
         </fieldset>
     </form>
- </div>
+</div>

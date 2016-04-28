@@ -37,9 +37,33 @@ angular.module('issueTrackingSystem.issues.issueService',[])
 
             }
 
+            function  editIssue(id){
+                var deferred = $q.defer();
+
+                $http.put(BASE_URL + 'Issues/' + id)
+                    .then(function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
+            }
+
+            function changeStatus(id, statusId){
+                var deferred = $q.defer();
+
+                $http.put(BASE_URL +'Issues/' + id + '/changestatus?statusid=' + statusId)
+                    .then(function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
+            }
+
             return{
                 getMyIssues: getMyIssues,
                 getIssueById: getIssueById,
+                editIssue: editIssue,
+                changeStatus: changeStatus
 
             }
         }

@@ -6,11 +6,11 @@ angular.module('issueTrackingSystem.issues.issuePageController',[])
         function($routeProvider){
             $routeProvider.when('/issues/:id',{
                 templateUrl: 'app/issues/issuePage.html',
-                controller: 'issuePageController'
+                controller: 'issuePageCtrl'
             })
         }
     ])
-    .controller('issuePageController',[
+    .controller('issuePageCtrl',[
         '$scope',
         '$routeParams',
         'issueService',
@@ -23,8 +23,23 @@ angular.module('issueTrackingSystem.issues.issuePageController',[])
                     var issue =response;
 
                     $scope.issue=issue;
-                })
+                });
+
+            $scope.changeStatus = function (statusId) {
+                console.log(id);
+                console.log(statusId);
+                issueService.changeStatus(id,statusId)
+                    .then(function(response){
+                        issueService.getIssueById(id)
+                            .then(function(response){
+                                var issue =response;
+
+                                $scope.issue=issue;
+                            })
+                    })
+
+            }
 
         }
-    ])
+    ]);
 
