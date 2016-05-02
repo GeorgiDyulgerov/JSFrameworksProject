@@ -69,10 +69,9 @@
                     <select class="form-control" id="select" ng-model="statusId">
                         <option ng-repeat="status in issue.AvailableStatuses" value="{{status.Id}}">-----{{status.Name}}</option>
                     </select>
-                    <button type="submit" class="btn btn-warning" ng-click="changeStatus(statusId)">Change</button>
-                    <br>
                 </div>
-
+                <button type="submit" class="btn btn-warning" ng-click="changeStatus(statusId)">Change</button>
+                <br>
             </div>
 
         </fieldset>

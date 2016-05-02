@@ -1,0 +1,35 @@
+'use strict';
+
+angular.module('issueTrackingSystem.projects.projectPageController',[])
+    .config([
+        '$routeProvider',
+        function($routeProvider){
+            $routeProvider.when('/projects/:id',{
+                templateUrl: 'app/projects/projectPage.html',
+                controller: 'projectPageCtrl'
+            })
+        }
+    ])
+    .controller('projectPageCtrl',[
+        '$scope',
+        '$routeParams',
+        'projectService',
+        'issueService',
+        function($scope,$routeParams,projectService,issueService){
+
+            var id = $routeParams.id;
+
+            projectService.getProjectById(id)
+                .then(function(response){
+                    var project = response;
+                    $scope.project = project;
+                });
+
+            issueService.getProjectIssues(id)
+                .then(function(response){
+                    var issues = response;
+                    $scope.issues = issues;
+                })
+
+        }
+    ]);

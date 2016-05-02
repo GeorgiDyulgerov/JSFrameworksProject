@@ -4,18 +4,22 @@ angular.module('issueTrackingSystem', [
   'ngRoute',
   'ngCookies',
   'ui.bootstrap.pagination',
-  'issueTrackingSystem.view1',
+
   'issueTrackingSystem.accounts.users',
   'issueTrackingSystem.accounts.authentication',
   'issueTrackingSystem.accounts.identity',
-  'issueTrackingSystem.home',
-  'issueTrackingSystem.common.mainController',
   'issueTrackingSystem.issues.issueService',
+  'issueTrackingSystem.projects.projectService',
+  'issueTrackingSystem.home',
+
+  'issueTrackingSystem.common.mainController',
   'issueTrackingSystem.home.dashboardController',
   'issueTrackingSystem.pagination.paginationController',
   'issueTrackerSystem.accounts.changePasswordController',
   'issueTrackingSystem.issues.issuePageController',
-  'issueTrackingSystem.issues.editIssuePageController'
+  'issueTrackingSystem.issues.editIssuePageController',
+  'issueTrackingSystem.projects.projectPageController',
+  'issueTrackingSystem.projects.allProjectsPageController',
 
 
   ])

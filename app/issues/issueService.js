@@ -25,16 +25,27 @@ angular.module('issueTrackingSystem.issues.issueService',[])
             }
 
             function getIssueById(id){
-                var defered = $q.defer();
+                var deferred = $q.defer();
 
                 $http.get(BASE_URL + 'Issues/' + id)
                     .then(function(response){
                         console.log(response.data);
-                        defered.resolve(response.data);
+                        deferred.resolve(response.data);
                     });
 
-                return defered.promise;
+                return deferred.promise;
+            }
 
+            function getProjectIssues(id){
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + 'Projects/' + id +'/Issues')
+                    .then(function(response){
+                        console.log(response);
+                        deferred.resolve(response.data);
+                    });
+
+                return deferred.promise;
             }
 
             function  editIssue(id){
@@ -42,7 +53,7 @@ angular.module('issueTrackingSystem.issues.issueService',[])
 
                 $http.put(BASE_URL + 'Issues/' + id)
                     .then(function (response) {
-                        deferred.resolve(response);
+                        deferred.resolve(response.data);
                     });
 
                 return deferred.promise;
@@ -62,9 +73,10 @@ angular.module('issueTrackingSystem.issues.issueService',[])
             return{
                 getMyIssues: getMyIssues,
                 getIssueById: getIssueById,
+                getProjectIssues: getProjectIssues,
                 editIssue: editIssue,
                 changeStatus: changeStatus
 
             }
         }
-    ])
+    ]);
