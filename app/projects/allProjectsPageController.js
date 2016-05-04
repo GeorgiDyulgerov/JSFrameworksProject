@@ -19,6 +19,11 @@ angular.module('issueTrackingSystem.projects.allProjectsPageController',[])
             projectService.getAllProjects()
                 .then(function(response){
                     var projects = response;
+                    projects.sort(function(a, b){
+                        if(a.Name < b.Name) return -1;
+                        if(a.Name > b.Name) return 1;
+                        return 0;
+                    });
                     $scope.projects = projects;
                 })
         }

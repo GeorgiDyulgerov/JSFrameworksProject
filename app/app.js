@@ -18,6 +18,7 @@ angular.module('issueTrackingSystem', [
   'issueTrackerSystem.accounts.changePasswordController',
   'issueTrackingSystem.issues.issuePageController',
   'issueTrackingSystem.issues.editIssuePageController',
+  'issueTrackingSystem.issues.addIssuePageController',
   'issueTrackingSystem.projects.projectPageController',
   'issueTrackingSystem.projects.allProjectsPageController',
 

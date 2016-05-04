@@ -60,6 +60,17 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
             return deferred.promise;
         }
 
+        function getUsers(){
+            var deferred = $q.defer();
+
+            $http.get(BASE_URL + 'Users')
+                .then(function(response){
+                    deferred.resolve(response.data);
+                });
+
+            return deferred.promise;
+        }
+
         function changePassword(passwords){
             var deferred = $q.defer();
 
@@ -86,6 +97,7 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
             registerAccount: registerAccount,
             loginAccount: loginAccount,
             logout: logout,
+            getUsers: getUsers,
             changePassword: changePassword,
             isAuthenticated: isAuthenticated,
             refreshCookie: refreshCookie

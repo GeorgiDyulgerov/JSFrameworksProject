@@ -48,11 +48,22 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                 return deferred.promise;
             }
 
-            function  editIssue(id){
+            function  editIssue(id,editedIssue){
                 var deferred = $q.defer();
 
                 $http.put(BASE_URL + 'Issues/' + id)
                     .then(function (response) {
+                        deferred.resolve(response.data);
+                    });
+
+                return deferred.promise;
+            }
+
+            function addIssue(issue){
+                var deferred = $q.defer();
+
+                $http.post(BASE_URL + '/Issues',issue)
+                    .then(function(response){
                         deferred.resolve(response.data);
                     });
 
@@ -75,6 +86,7 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                 getIssueById: getIssueById,
                 getProjectIssues: getProjectIssues,
                 editIssue: editIssue,
+                addIssue: addIssue,
                 changeStatus: changeStatus
 
             }
