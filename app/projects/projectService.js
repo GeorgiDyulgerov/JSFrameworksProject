@@ -33,6 +33,17 @@ angular.module('issueTrackingSystem.projects.projectService',[])
                 return deferred.promise;
             }
 
+            function addProject(body){
+                var deferred = $q.defer();
+
+                $http.post(BASE_URL + 'Projects/', body)
+                    .then(function(response){
+                        deferred.resolve(response.data);
+                    })
+
+                return deferred.promise;
+            }
+
             function editProject(id, body){
                 var deferred = $q.defer();
 
@@ -47,6 +58,7 @@ angular.module('issueTrackingSystem.projects.projectService',[])
             return{
                 getAllProjects: getAllProjects,
                 getProjectById: getProjectById,
+                addProject: addProject,
                 editProject: editProject,
             }
         }
