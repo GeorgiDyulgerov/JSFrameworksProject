@@ -4,9 +4,20 @@ angular.module('issueTrackingSystem.issues.editIssuePageController',[])
     .config([
         '$routeProvider',
         function($routeProvider){
+            var check ={
+                authenticated: [
+                    '$q',
+                    'authentication',
+                    function($q,authentication){
+                        if(authentication.isAuthenticated()){
+                            return $q.when(true);
+                        }
+                        return $q.reject('Unauthorized Access');
+                    }]};
             $routeProvider.when('/issues/:id/edit',{
                 templateUrl: 'app/issues/editIssuePage.html',
-                controller: 'editIssuePageCtrl'
+                controller: 'editIssuePageCtrl',
+                resolve: check.authenticated
             })
         }
     ])
@@ -15,60 +26,54 @@ angular.module('issueTrackingSystem.issues.editIssuePageController',[])
         '$routeParams',
         '$location',
         'issueService',
-        'authentication',
-        function($scope,$routeParams,$location, issueService, authentication){
+        'projectService',
+        'identity',
+        function($scope,$routeParams,$location, issueService,projectService, identity){
 
             var id = $routeParams.id;
+            var projectId = undefined;
 
-            //TODO: Finish
-
-            $scope.editIssue = function(editedIssue){
+            $scope.editIssue = function(editedIssue,originalAssignee){
                 var body = {};
                 body.Title =editedIssue.Title;
                 body.Description =editedIssue.Description;
-                body.DueDate =editedIssue.DueDate;
-                body.AssigneeId =editedIssue.AssigneeId;
+                body.DueDate = editedIssue.DueDate;
                 body.PriorityId =editedIssue.PriorityId;
                 body.Labels = editedIssue.Labels;
-
+                if(editedIssue.AssigneeId === undefined){
+                    body.AssigneeId = originalAssignee;
+                }
+                else {body.AssigneeId = editedIssue.AssigneeId;}
                 console.log(body);
                 issueService.editIssue(id,body)
                     .then(function(response){
-                        console.log('success');
-                        console.log(response);
+                        toastr.success('Successfully edited issue.');
+                        $location.path('#/issues/' + id);
                     })
-
             }
 
             issueService.getIssueById(id)
                 .then(function(response){
                     var issue =response;
+                    projectId = issue.Project.Id;
                     $scope.editIssueModel = issue;
                     $scope.editIssueModel.Title = issue.Title;
                     $scope.editIssueModel.Description = issue.Description;
                     $scope.editIssueModel.DueDate = new Date(issue.DueDate);
                     $scope.editIssueModel.ProjectId = issue.Project.Id;
                     $scope.issue = issue;
+                })
+                .then(function(){
+                    projectService.getProjectById(projectId)
+                        .then(function(response){
+                            $scope.LeadId = response.Lead.Id;
+                            var priorities = response.Priorities;
+                            $scope.priorities = priorities;
+                        })
                 });
 
-            authentication.getUsers()
-                .then(function(response){
-                    var users = response;
-                    users.sort(function(a, b){
-                        if(a.Username < b.Username) return -1;
-                        if(a.Username > b.Username) return 1;
-                        return 0;
-                    });
-                    $scope.users = users;
-                });
 
-            $scope.setPriorities= function(projectId){
-                projectService.getProjectById(projectId)
-                    .then(function(response){
-                        var priorities = response.Priorities;
-                        $scope.priorities = priorities;
-                    })
-            }
+
 
             $scope.changeStatus = function (statusId) {
                 issueService.changeStatus(id,statusId)

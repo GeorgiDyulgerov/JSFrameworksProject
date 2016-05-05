@@ -4,9 +4,20 @@ angular.module('issueTrackingSystem.projects.editProjectPageController',[])
     .config([
         '$routeProvider',
         function($routeProvider){
+            var check ={
+                authenticated: [
+                    '$q',
+                    'authentication',
+                    function($q,authentication){
+                        if(authentication.isAuthenticated()){
+                            return $q.when(true);
+                        }
+                        return $q.reject('Unauthorized Access');
+                    }]};
             $routeProvider.when('/projects/:id/edit',{
                 templateUrl: 'app/projects/editProjectPage.html',
-                controller: 'editProjectPageCtrl'
+                controller: 'editProjectPageCtrl',
+                resolve: check.authenticated
             })
         }
     ])
@@ -20,6 +31,21 @@ angular.module('issueTrackingSystem.projects.editProjectPageController',[])
 
             var id = $routeParams.id;
 
+            $scope.editProject = function (model){
+                var body = {};
+                body.Name = model.Name;
+                body.Description = model.Description;
+                body.LeadId = model.LeadId;
+                body.Labels = model.Labels;
+                body.Priorities = model.Priorities;
+                console.log(body);
+                projectService.editProject(id,body)
+                    .then(function(response){
+                        toastr.success('Successfully edited Project.');
+                        $location.path('/projects/'+ response.Id)
+                    })
+            }
+
             projectService.getProjectById(id)
                 .then(function(response){
                     var project = response;
@@ -31,31 +57,8 @@ angular.module('issueTrackingSystem.projects.editProjectPageController',[])
                     $scope.project = project;
                 });
 
-            authentication.getUsers()
-                .then(function(response){
-                    var users = response;
-                    users.sort(function(a, b){
-                        if(a.Username < b.Username) return -1;
-                        if(a.Username > b.Username) return 1;
-                        return 0;
-                    });
-                    $scope.users = users;
-                });
 
-            $scope.editProject = function (model){
-                var body = {};
-                body.Name = model.Name;
-                body.Description = model.Description;
-                body.LeadId = model.LeadId;
-                body.Labels = model.Labels;
-                body.Priorities = model.Priorities;
-                console.log(body);
-                projectService.editProject(id,body)
-                    .then(function(response){
-                        console.log(response);
-                        $location.path('/projects/'+ response.Id)
-                    })
-            }
+
 
 
         }

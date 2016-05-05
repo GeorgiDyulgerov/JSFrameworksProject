@@ -16,13 +16,15 @@ angular.module('issueTrackingSystem.home',[])
             $scope.login = function(account){
                 authentication.loginAccount(account)
                     .then(function(loggedInUser){
-                        $location.path('/dash');
+                        toastr.success('Successfully logged in.');
+                        $location.path('/');
                     })
             };
             $scope.register= function(account){
                 authentication.registerAccount(account)
                     .then(function(registeredUser){
-                        $location.path('/dash');
+                        toastr.success('Successfully registered.');
+                        $location.path('/');
                     })
             };
         }

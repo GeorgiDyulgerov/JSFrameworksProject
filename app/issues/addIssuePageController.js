@@ -4,9 +4,20 @@ angular.module('issueTrackingSystem.issues.addIssuePageController',[])
     .config([
         '$routeProvider',
         function($routeProvider){
+            var check ={
+                authenticated: [
+                    '$q',
+                    'authentication',
+                    function($q,authentication){
+                        if(authentication.isAuthenticated()){
+                            return $q.when(true);
+                        }
+                        return $q.reject('Unauthorized Access');
+                    }]};
             $routeProvider.when('/projects/:id/add-issue',{
                 templateUrl: 'app/issues/addIssuePage.html',
-                controller: 'addIssuePageCtrl'
+                controller: 'addIssuePageCtrl',
+                resolve:check.authenticated
             })
         }
     ])
@@ -24,6 +35,7 @@ angular.module('issueTrackingSystem.issues.addIssuePageController',[])
             $scope.addIssue = function(issue){
                 issueService.addIssue(issue)
                     .then(function(response){
+                        toastr.success('Successfully added issue.');
                         $location.path('/issues/'+response.Id);
                     })
             };
@@ -44,17 +56,6 @@ angular.module('issueTrackingSystem.issues.addIssuePageController',[])
                             });
                             $scope.projects = projects;
                         })
-                });
-
-            authentication.getUsers()
-                .then(function(response){
-                    var users = response;
-                    users.sort(function(a, b){
-                        if(a.Username < b.Username) return -1;
-                        if(a.Username > b.Username) return 1;
-                        return 0;
-                    });
-                    $scope.users = users;
                 });
 
 

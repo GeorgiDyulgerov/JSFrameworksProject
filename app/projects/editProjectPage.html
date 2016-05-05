@@ -28,7 +28,7 @@
                 <div class="col-lg-10">
                     <select class="form-control" required="required" ng-model="editProjectModule.LeadId">
                         <option value="{{project.Lead.Id}}">current lead: {{project.Lead.Username}}</option>
-                        <option ng-repeat="selectUser in users"  value="{{selectUser.Id}}">{{selectUser.Username}}</option>
+                        <option ng-repeat="selectUser in allUsers"  value="{{selectUser.Id}}">{{selectUser.Username}}</option>
                     </select>
                     <br>
                 </div>

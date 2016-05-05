@@ -28,7 +28,7 @@
                 <label class="col-lg-2 control-label">AssigneeId: </label>
                 <div class="col-lg-10">
                     <select class="form-control" required="required" ng-model="addIssueModel.AssigneeId">
-                        <option ng-repeat="selectUser in users"  value="{{selectUser.Id}}">{{selectUser.Username}}</option>
+                        <option ng-repeat="selectUser in allUsers"  value="{{selectUser.Id}}">{{selectUser.Username}}</option>
                     </select>
                     <br>
                 </div>

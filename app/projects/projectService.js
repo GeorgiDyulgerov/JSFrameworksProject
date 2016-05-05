@@ -27,7 +27,6 @@ angular.module('issueTrackingSystem.projects.projectService',[])
 
                 $http.get(BASE_URL + 'Projects/' + id)
                     .then(function(response){
-                        console.log(response.data);
                         deferred.resolve(response.data);
                     });
 

@@ -20,7 +20,7 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
                     loginAccount(account);
                     deferred.resolve(response);
                 },function(err){
-                    deferred.reject(err);
+                    toastr.error(err.data.ModelState[""][0]);
                 });
             return deferred.promise;
         }
@@ -54,7 +54,7 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
                     identity.removeUser();
                     deferred.resolve(response);
                 },function(err){
-                    deferred.reject(err);
+                    toastr.error(err.data.ModelState[""][0]);
                 });
 
             return deferred.promise;
@@ -77,6 +77,8 @@ angular.module('issueTrackingSystem.accounts.authentication',[])
             $http.post(BASE_URL + "api/Account/ChangePassword",passwords)
                 .then(function(response){
                     deferred.resolve(response);
+                },function(err){
+                    toastr.error(err.data.ModelState[""][0]);
                 });
 
             return deferred.promise

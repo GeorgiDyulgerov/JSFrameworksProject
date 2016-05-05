@@ -31,6 +31,8 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                     .then(function(response){
                         console.log(response.data);
                         deferred.resolve(response.data);
+                    },function(err){
+                        toastr.error(err.data.Message);
                     });
 
                 return deferred.promise;
@@ -43,6 +45,8 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                     .then(function(response){
                         console.log(response);
                         deferred.resolve(response.data);
+                    },function(err){
+                        toastr.error(err.data.Message);
                     });
 
                 return deferred.promise;
@@ -54,6 +58,8 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                 $http.put(BASE_URL + 'Issues/' + id,editedIssue)
                     .then(function (response) {
                         deferred.resolve(response.data);
+                    },function(err){
+                        toastr.error(err.data.Message);
                     });
 
                 return deferred.promise;
@@ -65,6 +71,8 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                 $http.post(BASE_URL + '/Issues',issue)
                     .then(function(response){
                         deferred.resolve(response.data);
+                    },function(err){
+                        toastr.error(err.data.Message);
                     });
 
                 return deferred.promise;
@@ -76,6 +84,8 @@ angular.module('issueTrackingSystem.issues.issueService',[])
                 $http.put(BASE_URL +'Issues/' + id + '/changestatus?statusid=' + statusId)
                     .then(function (response) {
                         deferred.resolve(response);
+                    },function(err){
+                        toastr.error(err.data.ModelState[""][0]);
                     });
 
                 return deferred.promise;

@@ -20,7 +20,6 @@ angular.module('issueTrackingSystem.home.dashboardController',[])
                     settings.TotalPages = response.TotalPages;
                     $scope.issues = issues;
             })
-                //TODO:fix shity code
                 .then(function(){
                     $scope.totalItems = settings.TotalPages * settings.pageSize;
                     $scope.currentPage = settings.pageNumber;

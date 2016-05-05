@@ -4,9 +4,20 @@ angular.module('issueTrackingSystem.issues.issuePageController',[])
     .config([
         '$routeProvider',
         function($routeProvider){
+            var check ={
+                authenticated: [
+                    '$q',
+                    'authentication',
+                    function($q,authentication){
+                        if(authentication.isAuthenticated()){
+                            return $q.when(true);
+                        }
+                        return $q.reject('Unauthorized Access');
+                    }]};
             $routeProvider.when('/issues/:id',{
                 templateUrl: 'app/issues/issuePage.html',
-                controller: 'issuePageCtrl'
+                controller: 'issuePageCtrl',
+                resolve: check.authenticated
             })
         }
     ])
