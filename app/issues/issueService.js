@@ -51,7 +51,7 @@ angular.module('issueTrackingSystem.issues.issueService',[])
             function  editIssue(id,editedIssue){
                 var deferred = $q.defer();
 
-                $http.put(BASE_URL + 'Issues/' + id)
+                $http.put(BASE_URL + 'Issues/' + id,editedIssue)
                     .then(function (response) {
                         deferred.resolve(response.data);
                     });

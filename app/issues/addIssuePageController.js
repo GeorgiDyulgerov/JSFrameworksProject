@@ -28,6 +28,7 @@ angular.module('issueTrackingSystem.issues.addIssuePageController',[])
                     })
             };
 
+            //TODO: make it faster and add label
             projectService.getProjectById(id)
                 .then(function(response){
                     $scope.previousProject = response;

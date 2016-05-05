@@ -20,6 +20,7 @@ angular.module('issueTrackingSystem.common.mainController',[])
                 then(identity.getCurrentUser()
                 .then(function(user) {
                     $scope.currentUser = user;
+                    $scope.isAdmin = user.isAdmin;
                 }))
         }
         );
