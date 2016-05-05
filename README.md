@@ -1,4 +1,4 @@
-Issue Tracking System
+# Issue Tracking System
 
 # angular-seed — the seed for AngularJS apps
 
