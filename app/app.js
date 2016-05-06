@@ -5,7 +5,6 @@ angular.module('issueTrackingSystem', [
   'ngCookies',
   'ui.bootstrap.pagination',
 
-  'issueTrackingSystem.accounts.users',
   'issueTrackingSystem.accounts.authentication',
   'issueTrackingSystem.accounts.identity',
   'issueTrackingSystem.issues.issueService',
